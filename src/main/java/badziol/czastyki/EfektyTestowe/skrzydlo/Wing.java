@@ -237,11 +237,17 @@ public class Wing {
             double x = coordinate[0];
             double y = coordinate[1];
 
+            //todo: tu jest fragment odpowiedzialny za tworzenie lewego i prawego skrzydla
+/*
             if (!wingConfig.onlyOneSide) {
                 // Spawn left side
                 Location particleLocLeft = getParticleSpawnLoc(wingLoc, x, y, WingSide.LEFT, animationState);
                 wingParticle.spawnParticle(particleLocLeft, players, WingSide.LEFT);
             }
+*/
+            // Spawn left side
+            Location particleLocLeft = getParticleSpawnLoc(wingLoc, x, y, WingSide.LEFT, animationState);
+            wingParticle.spawnParticle(particleLocLeft, players, WingSide.LEFT);
 
             // Spawn right side
             Location particleLocRight = getParticleSpawnLoc(wingLoc, x, y, WingSide.RIGHT, animationState);

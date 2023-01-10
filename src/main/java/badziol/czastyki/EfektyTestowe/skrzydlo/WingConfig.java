@@ -1,18 +1,18 @@
 package badziol.czastyki.EfektyTestowe.skrzydlo;
 
+import org.bukkit.Particle;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class WingConfig {
-    public boolean showWhenMoving = true; //me;
     public double startVertical = -0.1;
-    public double startHorizontalOffset = 0; //default
+    public double startHorizontalOffset = 0;
     public double startDistanceToPlayer = 0.3;
     public double distanceBetweenParticles = 0.1;
     public int wingTimer = 2;
 
     public boolean wingAnimation = true; //me - nie zainicjowane w soulshadow ( default : false)
-    public boolean onlyOneSide = false;  //me - nie zainicjowane w soulshadow
 
     public int wingFlapSpeed = 4;
     public int startOffset = 30;
@@ -29,6 +29,9 @@ public class WingConfig {
 
 
     public WingConfig() {
+        wingParticles.add(new WingParticle(this,"x", Particle.CRIT_MAGIC));
+        wingParticles.add(new WingParticle(this,"o", Particle.SPELL_WITCH));
+
         myParticleLayout.add("-,-,-,-,x,x,x,-,-,-");
         myParticleLayout.add("-,-,-,x,x,x,x,x,-,-");
         myParticleLayout.add("-,-,x,x,x,x,x,x,x,-");
@@ -44,13 +47,10 @@ public class WingConfig {
         myParticleLayout.add("-,-,-,-,x,x,x,x,x,x");
         myParticleLayout.add("-,-,-,-,-,x,x,x,x,-");
         myParticleLayout.add("-,-,-,-,-,x,x,x,x,-");
-        myParticleLayout.add("-,-,-,-,-,-,x,x,x,-");
-        myParticleLayout.add("-,-,-,-,-,-,x,x,x,-");
-        myParticleLayout.add("-,-,-,-,-,-,-,x,x,-");
-        myParticleLayout.add("-,-,-,-,-,-,-,-,x,-");
-
-        //wingParticles = createWingParticles(getConfigurationSection("wing.particles"));// orginal
-        wingParticles.add(new WingParticle(this,"x"));
+        myParticleLayout.add("-,-,-,-,-,-,o,x,x,-");
+        myParticleLayout.add("-,-,-,-,-,-,o,x,x,-");
+        myParticleLayout.add("-,-,-,-,-,-,-,o,x,-");
+        myParticleLayout.add("-,-,-,-,-,-,-,-,o,-");
 
         particleCoordinates = parseParticleCoordinates();
 
@@ -67,26 +67,19 @@ public class WingConfig {
     }
 
 
-
-    ///TU SIE ZASTANOWIC!!!!
     private HashMap<double[], WingParticle> parseParticleCoordinates() {
-
         HashMap<double[], WingParticle> particleCoordinates = new HashMap<>();
         double distance;
         double height = startVertical + (myParticleLayout.size() * distanceBetweenParticles); // Highest vertical point of the wing
 
-        for (String ll : myParticleLayout) {
+        for (String liniaCzastek : myParticleLayout) {
 
             height = height - distanceBetweenParticles;
             distance = startDistanceToPlayer;
+            String[] liniaCzastekDane = liniaCzastek.split(",");
 
-           String[] particleLine = ll.split(",");
-
-            // Go though each "particle" on the row
-            for (String particleID : particleLine) {
-
-                // "-" means there should be no particle at the coordinate
-                if (particleID.equals("-")) {
+            for (String czastkaID : liniaCzastekDane) {
+                if (czastkaID.equals("-")) { // '-' - traktuj jako puste pole
                     distance = distance + distanceBetweenParticles;
                     continue;
                 }
@@ -94,7 +87,7 @@ public class WingConfig {
                 double[] coordinates = new double[2];
                 coordinates[0] = distance;
                 coordinates[1] = height;
-                particleCoordinates.put(coordinates, getWingParticleByID(particleID));
+                particleCoordinates.put(coordinates, getWingParticleByID(czastkaID));
                 distance = distance + distanceBetweenParticles;
             }
         }
