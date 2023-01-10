@@ -1,0 +1,11 @@
+name: Czastyki
+version: '${project.version}'
+main: badziol.czastyki.Czastyki
+api-version: 1.19
+commands:
+  cz:
+    description: Wywolanie menu glownego czastek
+    usage: </command>
+  czt:
+    description: testowanie zachowania konkretnego efektu
+    usage: </command>
