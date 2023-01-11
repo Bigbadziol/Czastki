@@ -22,7 +22,7 @@ public final class Czastyki extends JavaPlugin {
     @Override
     public void onEnable() {
         setInstance(this);
-        System.out.println("Czastki versja 1.12");
+        System.out.println("Czastki versja 1.21");
         System.out.println("Komendy :");
         System.out.println("/cz - menu glowne interfejsu czastek.");
         System.out.println("/czt [start][stop] - testowanie efektu bezposrednio zdef. w klasie KomendaCzt");

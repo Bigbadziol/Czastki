@@ -18,20 +18,20 @@ public class KomendaCzt implements TabExecutor {
     private ArrayList<String> podpowiedz = new ArrayList<>();
     private EfektTylkoRuch eTylkoRuch;
     private EfektTylkoZadanie eTylkoZadanie;
-
+    private Wing wing;
     private MyEventListener myEvent;//niech zostanie
 
     public KomendaCzt(Czastyki plugin) {
         this.plugin = plugin;
-
+        wing = new Wing(plugin);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) return true;
         Player player = (Player) sender;
-        if (args.length == 1){
-            if (args[0].equalsIgnoreCase("start")){
+        if (args.length == 1) {
+            if (args[0].equalsIgnoreCase("start")) {
                 System.out.println("[CZT] - start");
                 // 1)
                 //eTylkoRuch = new EfektTylkoRuch(plugin);
@@ -42,7 +42,7 @@ public class KomendaCzt implements TabExecutor {
                 eTylkoZadanie.inicjuj(player);
                 eTylkoZadanie.start();
 
-            }else if (args[0].equalsIgnoreCase("stop")){
+            } else if (args[0].equalsIgnoreCase("stop")) {
                 System.out.println("[CZT] - stop");
                 // 1)
                 //if (eTylkoRuch != null){
@@ -55,28 +55,20 @@ public class KomendaCzt implements TabExecutor {
                 if (eTylkoZadanie != null) eTylkoZadanie.stop();
                 else System.out.println("Tylko zadanie - proba zatrzymania nie utworzonego obiektu");
 
-            }else if (args[0].equalsIgnoreCase("test1")){
+            } else if (args[0].equalsIgnoreCase("test1")) {
                 //myEvent = new MyEventListener(plugin); // niech zostanie
-                player.getWorld().spawnParticle(Particle.ELECTRIC_SPARK,player.getLocation(),50);
-            }else if (args[0].equalsIgnoreCase("test2")){
-                player.getWorld().spawnParticle(Particle.ELECTRIC_SPARK,player.getLocation(),50, 2.0d, 0.5d,2.0d);
-            }else if (args[0].equalsIgnoreCase("test3")){
-                player.getWorld().spawnParticle(Particle.ELECTRIC_SPARK,player.getLocation(),0, 2.0d, 0.5d,2.0d);
-            }else if (args[0].equalsIgnoreCase("test4")){
-                Wing wing = new Wing(plugin);
+                player.getWorld().spawnParticle(Particle.ELECTRIC_SPARK, player.getLocation(), 50);
+            } else if (args[0].equalsIgnoreCase("test2")) {
+                player.getWorld().spawnParticle(Particle.ELECTRIC_SPARK, player.getLocation(), 50, 2.0d, 0.5d, 2.0d);
+            } else if (args[0].equalsIgnoreCase("test3")) {
+                player.getWorld().spawnParticle(Particle.ELECTRIC_SPARK, player.getLocation(), 0, 2.0d, 0.5d, 2.0d);
+            } else if (args[0].equalsIgnoreCase("zaloz")) {
                 wing.addPlayer(player);
-
-                //ArrayList<Player> lista = new ArrayList<>();
-                //lista.add(player);
-               // wing.spawnWingForPlayers(player.getLocation(),lista ,30);
-                //wing.spawnWingForPlayers(player.getLocation(),lista ,40);
-                //wing.spawnWingForPlayers(player.getLocation(),lista ,50);
-            }
-
-            else{
+            } else if (args[0].equalsIgnoreCase("zdejmij")) {
+                wing.removePlayer(player);
+            }else{
                 System.out.println("[CZT] - nieznany parametr");
             }
-
         }else{
             System.out.println("[CZT] - zla liczba parametrow");
         }
@@ -92,7 +84,8 @@ public class KomendaCzt implements TabExecutor {
             podpowiedz.add("test1");
             podpowiedz.add("test2");
             podpowiedz.add("test3");
-            podpowiedz.add("test4");
+            podpowiedz.add("zaloz");
+            podpowiedz.add("zdejmij");
         }
         return podpowiedz;
     };

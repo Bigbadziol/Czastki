@@ -1,5 +1,6 @@
 package badziol.czastyki.EfektyTestowe.skrzydlo;
 
+import org.bukkit.Color;
 import org.bukkit.Particle;
 
 import java.util.ArrayList;
@@ -18,62 +19,62 @@ public class WingConfig {
     public int startOffset = 30;
     public int stopOffset = 70;
 
-    private ArrayList<WingParticle> wingParticles = new ArrayList<>(); //tworzenie moje (pojedyncza czastka x)
+    private ArrayList<SkrzydloCzastka> skrzydloCzastkas = new ArrayList<>(); //tworzenie moje (pojedyncza czastka x)
 
 
     // Hasmap containing the coordinates relative to the player
     // And the assinged particle at that coordinate
     // double[] functions as double[distance from player, height]
-    public  HashMap<double[], WingParticle> particleCoordinates;
-    private ArrayList<String> myParticleLayout = new ArrayList<>(); // moje
-
+    public  HashMap<double[], SkrzydloCzastka> particleCoordinates;
+    private  final ArrayList<String> skrzydloWzorBezpiecznyLot = new ArrayList<>();
+    private  final ArrayList<String> skrzydloWzorCzasPrzekroczony = new ArrayList<>();
 
     public WingConfig() {
-        wingParticles.add(new WingParticle(this,"x", Particle.CRIT_MAGIC));
-        wingParticles.add(new WingParticle(this,"o", Particle.SPELL_WITCH));
+        //Przeczytaj opis konstruktora
+        skrzydloCzastkas.add(new SkrzydloCzastka("x", Particle.CRIT_MAGIC, Color.fromRGB(0,0,0) ,0));
+        skrzydloCzastkas.add(new SkrzydloCzastka("o", Particle.SPELL_WITCH, Color.fromRGB(0,0,0), 0));
 
-        myParticleLayout.add("-,-,-,-,x,x,x,-,-,-");
-        myParticleLayout.add("-,-,-,x,x,x,x,x,-,-");
-        myParticleLayout.add("-,-,x,x,x,x,x,x,x,-");
-        myParticleLayout.add("-,x,x,x,x,x,x,x,x,-");
-        myParticleLayout.add("x,x,x,x,x,x,x,x,x,x");
-        myParticleLayout.add("x,x,x,x,x,x,x,x,x,x");
-        myParticleLayout.add("x,x,x,x,x,x,x,x,x,x");
-        myParticleLayout.add("x,x,x,x,x,x,x,x,x,x");
-        myParticleLayout.add("-,-,x,x,x,x,x,x,x,x");
-        myParticleLayout.add("-,-,-,x,x,x,x,x,x,x");
-        myParticleLayout.add("-,-,-,x,x,x,x,x,x,x");
-        myParticleLayout.add("-,-,-,-,x,x,x,x,x,x");
-        myParticleLayout.add("-,-,-,-,x,x,x,x,x,x");
-        myParticleLayout.add("-,-,-,-,-,x,x,x,x,-");
-        myParticleLayout.add("-,-,-,-,-,x,x,x,x,-");
-        myParticleLayout.add("-,-,-,-,-,-,o,x,x,-");
-        myParticleLayout.add("-,-,-,-,-,-,o,x,x,-");
-        myParticleLayout.add("-,-,-,-,-,-,-,o,x,-");
-        myParticleLayout.add("-,-,-,-,-,-,-,-,o,-");
+        skrzydloWzorBezpiecznyLot.add("-,-,-,-,x,x,x,-,-,-");
+        skrzydloWzorBezpiecznyLot.add("-,-,-,x,x,x,x,x,-,-");
+        skrzydloWzorBezpiecznyLot.add("-,-,x,x,x,x,x,x,x,-");
+        skrzydloWzorBezpiecznyLot.add("-,x,x,x,x,x,x,x,x,-");
+        skrzydloWzorBezpiecznyLot.add("x,x,x,x,x,x,x,x,x,x");
+        skrzydloWzorBezpiecznyLot.add("x,x,x,x,x,x,x,x,x,x");
+        skrzydloWzorBezpiecznyLot.add("x,x,x,x,x,x,x,x,x,x");
+        skrzydloWzorBezpiecznyLot.add("x,x,x,x,x,x,x,x,x,x");
+        skrzydloWzorBezpiecznyLot.add("-,-,x,x,x,x,x,x,x,x");
+        skrzydloWzorBezpiecznyLot.add("-,-,-,x,x,x,x,x,x,x");
+        skrzydloWzorBezpiecznyLot.add("-,-,-,x,x,x,x,x,x,x");
+        skrzydloWzorBezpiecznyLot.add("-,-,-,-,x,x,x,x,x,x");
+        skrzydloWzorBezpiecznyLot.add("-,-,-,-,x,x,x,x,x,x");
+        skrzydloWzorBezpiecznyLot.add("-,-,-,-,-,x,x,x,x,-");
+        skrzydloWzorBezpiecznyLot.add("-,-,-,-,-,x,x,x,x,-");
+        skrzydloWzorBezpiecznyLot.add("-,-,-,-,-,-,o,x,x,-");
+        skrzydloWzorBezpiecznyLot.add("-,-,-,-,-,-,o,x,x,-");
+        skrzydloWzorBezpiecznyLot.add("-,-,-,-,-,-,-,o,x,-");
+        skrzydloWzorBezpiecznyLot.add("-,-,-,-,-,-,-,-,o,-");
 
-        particleCoordinates = parseParticleCoordinates();
+        particleCoordinates = parsujWzorSkrzydla(skrzydloWzorBezpiecznyLot);
 
     }
 
 
-    public WingParticle getWingParticleByID(String ID) {
-        for (WingParticle wingParticle : wingParticles) {
-            if (wingParticle.id.equals(ID)) {
-                return wingParticle;
+    public SkrzydloCzastka pobierzSymbolCzastki(String symbol) {
+        for (SkrzydloCzastka skrzydloCzastka : skrzydloCzastkas) {
+            if (skrzydloCzastka.symbol.equals(symbol)) {
+                return skrzydloCzastka;
             }
         }
         return null;
     }
 
 
-    private HashMap<double[], WingParticle> parseParticleCoordinates() {
-        HashMap<double[], WingParticle> particleCoordinates = new HashMap<>();
+    private HashMap<double[], SkrzydloCzastka> parsujWzorSkrzydla(ArrayList<String> wzor) {
+        HashMap<double[], SkrzydloCzastka> particleCoordinates = new HashMap<>();
         double distance;
-        double height = startVertical + (myParticleLayout.size() * distanceBetweenParticles); // Highest vertical point of the wing
+        double height = startVertical + (wzor.size() * distanceBetweenParticles); // Highest vertical point of the wing
 
-        for (String liniaCzastek : myParticleLayout) {
-
+        for (String liniaCzastek : wzor) {
             height = height - distanceBetweenParticles;
             distance = startDistanceToPlayer;
             String[] liniaCzastekDane = liniaCzastek.split(",");
@@ -83,11 +84,10 @@ public class WingConfig {
                     distance = distance + distanceBetweenParticles;
                     continue;
                 }
-
                 double[] coordinates = new double[2];
                 coordinates[0] = distance;
                 coordinates[1] = height;
-                particleCoordinates.put(coordinates, getWingParticleByID(czastkaID));
+                particleCoordinates.put(coordinates, pobierzSymbolCzastki(czastkaID));
                 distance = distance + distanceBetweenParticles;
             }
         }
