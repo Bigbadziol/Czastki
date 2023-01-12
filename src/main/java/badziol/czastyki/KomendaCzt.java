@@ -2,10 +2,9 @@ package badziol.czastyki;
 
 import badziol.czastyki.EfektyTestowe.EfektTylkoRuch;
 import badziol.czastyki.EfektyTestowe.EfektTylkoZadanie;
-import badziol.czastyki.EfektyTestowe.skrzydlo.Wing;
+import badziol.czastyki.EfektyTestowe.skrzydlo.Skrzydla;
 import org.bukkit.Particle;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
@@ -18,12 +17,12 @@ public class KomendaCzt implements TabExecutor {
     private ArrayList<String> podpowiedz = new ArrayList<>();
     private EfektTylkoRuch eTylkoRuch;
     private EfektTylkoZadanie eTylkoZadanie;
-    private Wing wing;
+    private Skrzydla skrzydla;
     private MyEventListener myEvent;//niech zostanie
 
     public KomendaCzt(Czastyki plugin) {
         this.plugin = plugin;
-        wing = new Wing(plugin);
+        skrzydla = new Skrzydla(plugin);
     }
 
     @Override
@@ -63,9 +62,9 @@ public class KomendaCzt implements TabExecutor {
             } else if (args[0].equalsIgnoreCase("test3")) {
                 player.getWorld().spawnParticle(Particle.ELECTRIC_SPARK, player.getLocation(), 0, 2.0d, 0.5d, 2.0d);
             } else if (args[0].equalsIgnoreCase("zaloz")) {
-                wing.addPlayer(player);
+                skrzydla.dodajGracza(player);
             } else if (args[0].equalsIgnoreCase("zdejmij")) {
-                wing.removePlayer(player);
+                skrzydla.usunGracza(player);
             }else{
                 System.out.println("[CZT] - nieznany parametr");
             }

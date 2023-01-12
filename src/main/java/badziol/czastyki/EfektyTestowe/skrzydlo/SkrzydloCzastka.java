@@ -36,14 +36,14 @@ public class SkrzydloCzastka {
      *  Stwórz pojedyńczą cząstkę wraz z jej lustrzanym odbiciem
      * @param loc - lokalizacja cząstki w przestrzeni
      * @param player - gracz dla którego, ma być utworzona cząstka
-     * @param wingSide - strona skrzydła
+     * @param skrzydloStrona - strona skrzydła
      */
-    public void rysujCzastke(Location loc, Player player , WingSide wingSide){
+    public void rysujCzastke(Location loc, Player player , SkrzydloStrona skrzydloStrona){
         double kierunek = loc.getYaw();
         double x, y, z, extra;
 
-        if (wingSide == WingSide.LEFT) kierunek = (kierunek + kat);
-        if (wingSide == WingSide.RIGHT) kierunek = (kierunek - kat);
+        if (skrzydloStrona == SkrzydloStrona.LEWA) kierunek = (kierunek + kat);
+        if (skrzydloStrona == SkrzydloStrona.PRAWA) kierunek = (kierunek - kat);
 
         if (czastka == Particle.SPELL_MOB || czastka == Particle.SPELL_MOB_AMBIENT) {
             x = kolor.getRed() / 255D;

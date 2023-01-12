@@ -1,5 +1,3 @@
 package badziol.czastyki.EfektyTestowe.skrzydlo;
 
-public enum WingSide {
-    LEFT, RIGHT
-}
+public enum FazaLotu { BEZPIECZNA,NIEBEZPIECZNA}
