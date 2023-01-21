@@ -146,6 +146,7 @@ public class Skrzydla {
         if (posiadacz.isSwimming()) return false;
         // Gracz szybuje- to coś innego niż lot.
         if (posiadacz.isGliding()) return false;
+        //można pokazać skrzydła
         return true;
     }
 

@@ -1,7 +1,9 @@
 package badziol.czastyki;
 
+import badziol.czastyki.EfektyTestowe.BloodHelix;
 import badziol.czastyki.EfektyTestowe.EfektTylkoRuch;
 import badziol.czastyki.EfektyTestowe.EfektTylkoZadanie;
+import badziol.czastyki.EfektyTestowe.FrostLord;
 import badziol.czastyki.EfektyTestowe.skrzydlo.Skrzydla;
 import org.bukkit.Particle;
 import org.bukkit.command.Command;
@@ -65,7 +67,16 @@ public class KomendaCzt implements TabExecutor {
                 skrzydla.dodajGracza(player);
             } else if (args[0].equalsIgnoreCase("zdejmij")) {
                 skrzydla.usunGracza(player);
-            }else{
+            } else if (args[0].equalsIgnoreCase("e01BloodHelix")) {
+                System.out.println("[CZT] - blood helix");
+                BloodHelix bh = new BloodHelix(plugin);
+                bh.efekt(player);
+            } else if (args[0].equalsIgnoreCase("e02FrostLord")) {
+                System.out.println("[CZT] - frost lord");
+                FrostLord fl = new FrostLord(plugin);
+                fl.efekt(player);
+            }
+            else{
                 System.out.println("[CZT] - nieznany parametr");
             }
         }else{
@@ -85,6 +96,8 @@ public class KomendaCzt implements TabExecutor {
             podpowiedz.add("test3");
             podpowiedz.add("zaloz");
             podpowiedz.add("zdejmij");
+            podpowiedz.add("e01BloodHelix");
+            podpowiedz.add("e02FrostLord");
         }
         return podpowiedz;
     };
