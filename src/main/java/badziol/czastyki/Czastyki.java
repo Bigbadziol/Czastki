@@ -1,5 +1,6 @@
 package badziol.czastyki;
 
+import com.lkeehl.tagapi.TagAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 //Przewodnik : https://www.spigotmc.org/threads/comprehensive-particle-spawning-guide-1-13-1-19.343001/
@@ -22,22 +23,29 @@ public final class Czastyki extends JavaPlugin {
     @Override
     public void onEnable() {
         setInstance(this);
-        System.out.println("Czastki versja 1.21");
+        //TagAPI.onEnable(this);
+
+        System.out.println("Czastki versja 1.23");
         System.out.println("Komendy :");
         System.out.println("/cz - menu glowne interfejsu czastek.");
         System.out.println("/czt [start][stop] - testowanie efektu bezposrednio zdef. w klasie KomendaCzt");
 
         MenuGui menu = new MenuGui();
         menu.przygotujInterfejsy();
-        getServer().getPluginManager().registerEvents(new MenuListener(), this);
+       // getServer().getPluginManager().registerEvents(new MenuListener(), this);
         //getServer().getPluginManager().registerEvents(new OnMoveTestListener(),this); //UWAGA UWAGA
+
+        //getServer().getPluginManager().registerEvents(new EhVector(this),this);
 
         this.getCommand("cz").setExecutor(new KomendaCz());
         this.getCommand("czt").setExecutor(new KomendaCzt(this));
     }
 
     @Override
-    public void onDisable() {}
+    public void onDisable() {
+       // TagAPI.onDisable();
+
+    }
 
     private static void setInstance(Czastyki instance) {
         Czastyki.instance = instance;

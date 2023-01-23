@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
  */
 public class MyEventListener implements Listener {
     public MyEventListener(Czastyki plugin){
+
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
     @EventHandler
