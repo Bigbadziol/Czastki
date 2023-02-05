@@ -4,6 +4,7 @@ import badziol.czastyki.EfektyTestowe.*;
 import badziol.czastyki.EfektyTestowe.Flaga.ArmorStandPixel;
 import badziol.czastyki.EfektyTestowe.Flaga.Picture;
 import badziol.czastyki.EfektyTestowe.skrzydlo.Skrzydla;
+import badziol.czastyki.EfektyTestowe.skrzydlo.StalyPunkt;
 import org.bukkit.Particle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -76,6 +77,12 @@ public class KomendaCzt implements TabExecutor {
                 System.out.println("[CZT] - frost lord");
                 FrostLord fl = new FrostLord(plugin);
                 fl.efekt(player);
+            } else if (args[0].equalsIgnoreCase("e03StalyPunkt")) {
+                System.out.println("[CZT] - Staly punkt");
+                StalyPunkt stalyPunkt = new StalyPunkt(plugin);
+                stalyPunkt.efektKlasyka();
+                //stalyPunkt.efektBiblioteka();
+
 
             }else if (args[0].equalsIgnoreCase("e98ParticlePic")) {
                     System.out.println("[CZT] - Particle picture");
@@ -153,11 +160,12 @@ public class KomendaCzt implements TabExecutor {
             podpowiedz.add("zdejmij");
             podpowiedz.add("e01BloodHelix");
             podpowiedz.add("e02FrostLord");
+            podpowiedz.add("e03StalyPunkt");
             podpowiedz.add("e98ParticlePic");
             podpowiedz.add("e99ParticleAnim");
             podpowiedz.add("e100ArmorStandPic");
             podpowiedz.add("e101ArmorStandAnim");
         }
         return podpowiedz;
-    };
+    }
 }
